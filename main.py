@@ -260,4 +260,4 @@ while True:
                     print(f"Total de consultas canceladas: {total}")
 
     else:
-        print("Informação não permitida para esse usuário!")
+        print("Informação não permitida para esse usuários")
