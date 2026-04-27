@@ -1,0 +1,27 @@
+[ 
+  { 
+    "id": 1, 
+    "nome": "Carlos Lima", 
+    "idade": 35, 
+    "cpf": "00000000000", 
+    "telefone": "67999999999", 
+    "endereco": "Rua A, 123" 
+  },
+  { 
+    "id": 2, 
+    "nome": "Joao Silva", 
+    "idade": 43, 
+    "cpf": "00000000000", 
+    "telefone": "67999999999", 
+    "endereco": "Rua A, 123" 
+  },
+  { 
+    "id": 3, 
+    "nome": "Rafael Souza", 
+    "idade": 23, 
+    "cpf": "00000000000", 
+    "telefone": "67999999999", 
+    "endereco": "Rua A, 123" 
+  }
+  
+] 
