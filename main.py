@@ -350,5 +350,171 @@ while True:
             func.Atendimentos_finalizados_hoje()
             func.Consultas_canceladas_hoje()
 
+            while True:
+                func.Menu_recepcionista()
+
+                op = int(input("Digite a opção que deseja acessar: "))
+
+                if op == 1:
+                    while True:
+                        print("-----MENU RECEPÇÃO PACIENTES-----")
+                        print("1 - Cadastrar paciente")
+                        print("2 - Editar paciente")
+                        print("3 - Buscar paciente específico")
+                        print("4 - Listar todos os pacientes")
+                        print("5 - Visualizar dados completos")
+                        print("6 - Sair")
+
+                        op = int(input("Digite a opção que deseja acessar: "))
+
+                        if op == 1:
+                            lista_pacientes = s.Carregar_arquivo_pacientes()
+                            
+                            nome = input("Digite o nome do paciente: ")
+                            idade = int(input("Digite a idade do paciente: "))
+                            cpf = input("Digite o CPF do paciente: ")
+                            telefone = input("Digite o telefone do paciente: ")
+                            endereco = input("Digite o endereço do paciente: ")
+
+                            new_dict = {
+                                "id": len(lista_pacientes) + 1,
+                                "nome": nome,
+                                "idade": idade,
+                                "cpf": cpf,
+                                "telefone": telefone,
+                                "endereco": endereco
+                            }
+                            
+                            lista_pacientes.append(new_dict)
+
+                            s.Salvar_arquivo_pacientes(lista_pacientes)
+
+                            print("Paciente cadastrado com sucesso!")
+                            break
+
+                        elif op == 2:
+                            lista_pacientes = s.Carregar_arquivo_pacientes()
+
+                            for i in lista_pacientes:
+                                print(f"ID: {i["id"]} - Nome: {i["nome"]}")
+
+                            op = int(input("Digite o ID que deseja editar: "))
+
+                            encontrado = False
+
+                            for i in lista_pacientes:
+                                if i["id"] == op:
+                                    print(f"1 - Nome: {i["nome"]}")
+                                    print(f"2 - Idade: {i["idade"]}")
+                                    print(f"3 - CPF: {i["cpf"]}")
+                                    print(f"4 - Telefone: {i["telefone"]}")
+                                    print(f"5 - Endereço: {i["endereco"]}")
+
+                                    op = int(input("Digite a opção que deseja editar: "))
+
+                                    if op == 1:
+                                        i["nome"] = input("Digite o novo nome: ")
+                                    elif op == 2:
+                                        i["idade"] = int(input("Digite a nova idade: "))
+                                    elif op == 3:
+                                        i["cpf"] = input("Digite o novo CPF: ")
+                                    elif op == 4:
+                                        i["telefone"] = input("Digite o novo telefone: ")
+                                    elif op == 5:
+                                        i["endereco"] = input("Digite o novo endereço: ")
+                                    
+                                    s.Salvar_arquivo_pacientes(lista_pacientes)
+
+                                    encontrado = True
+                                    
+                                    print("Alteração salva com sucesso!")
+                                    break
+                                
+                            if not encontrado:
+                                print("ID não encontrado!")
+
+                        elif op == 3:
+                            lista_pacientes = s.Carregar_arquivo_pacientes()
+
+                            busca_paciente = int(input("Digite o ID do paciente: "))
+
+                            encontrado = False
+
+                            for i in lista_pacientes:
+                                if i["id"] == busca_paciente:
+                                    print(f"1 - Nome: {i["nome"]}")
+                                    print(f"2 - Idade: {i["idade"]}")
+                                    print(f"3 - CPF: {i["cpf"]}")
+                                    print(f"4 - Telefone: {i["telefone"]}")
+                                    print(f"5 - Endereço: {i["endereco"]}")
+                                    
+                                    encontrado = True
+                                    break
+                            if not encontrado:
+                                print("ID não localizado!")
+
+                        elif op == 4:
+                            lista_pacientes = s.Carregar_arquivo_pacientes()
+
+                            for i in lista_pacientes:
+                                print(f"ID: {i["id"]} - {i["nome"]}")
+
+                        elif op == 5:
+                            lista_pacientes = s.Carregar_arquivo_pacientes()
+
+                            for i in lista_pacientes:
+                                print(f"ID: {i["id"]} - {i["nome"]}")
+
+                            busca_paciente = int(input("Digite o ID do paciente: "))
+
+                            encontrado = False
+
+                            for i in lista_pacientes:
+                                if i["id"] == busca_paciente:
+                                    print(f"1 - Nome: {i["nome"]}")
+                                    print(f"2 - Idade: {i["idade"]}")
+                                    print(f"3 - CPF: {i["cpf"]}")
+                                    print(f"4 - Telefone: {i["telefone"]}")
+                                    print(f"5 - Endereço: {i["endereco"]}")
+                                    
+                                    encontrado = True
+                                    break
+
+                            if not encontrado:
+                                print("ID não localizado!")
+
+                        elif op == 6:
+                            print("Voltando!")
+                            break
+
+                elif op == 2:
+                    while True:
+                        print("-----MENU RECEPÇÃO CONSULTAS-----")
+                        print("1 - Marcar consulta para médico específico")
+                        print("2 - Escolher data/horário")
+                        print("3 - Reagendar consulta")
+                        print("4 - Cancelar consulta")
+                        print("5 - Confirmar presença")
+                        print("6 - Listar todas as consultas do dia")
+                        print("7 - Listar consultas futuras")
+                        print("8 - Sair")
+
+                        op = int(input("Digite a opção que deseja acessar: "))
+
+                        if op == 1:
+                            lista_consultas = s.Carregar_arquivo_consultas()
+                            lista_medicos = s.Carregar_arquivo_medicos()
+
+                            for i in lista_medicos:
+                                print(f"ID médico: {i["id"]} - {i["nome"]}")
+
+                            op = int(input("Digite o ID do médico: "))
+
+                            for i in lista_consultas:
+                                if i["id_medico"] ==
+
+
+
     else:
         print("Informação não permitida para esse usuários")
+        

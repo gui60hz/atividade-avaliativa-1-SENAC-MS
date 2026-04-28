@@ -172,3 +172,10 @@ def Consultas_canceladas_hoje():
     
     print(f"Consultas finalizadas hoje: {cons_cancel_hoje} ")
 
+def Menu_recepcionista():
+    print("-----MENU RECEPÇÃO-----")
+    print("1 - Pacientes")
+    print("2 - Consultas")
+    print("3 - Histórico")
+    print("4 - Relatórios")
+    print("5 - Sair")
