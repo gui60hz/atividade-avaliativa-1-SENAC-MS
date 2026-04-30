@@ -539,19 +539,33 @@ while True:
                         elif op == 2:
                             lista_consultas = s.Carregar_arquivo_consultas()
 
-                            data = input("Digite a data da consulta: ")
-                            hora = input("Digite a hora da consulta: ")
+                            for i in lista_consultas:
+                                if i["status"] == "Agendada":
+                                    print(f"ID: {i["id"]} | DATA: {i["data"]} | HORÁRIO: {i["hora"]}")
+
+                            id_consulta = int(input("Digite o id da consulta: "))
 
                             encontrado = False
 
                             for i in lista_consultas:
-                                if i["data"] == data and i["hora"] == hora:
-                                    print(f"DATA: {i["data"]} | HORÁRIO: {i["hora"]}")
-                                    encontrado = True
+                                if i["id"] == id_consulta:
+                                    data = input("Digite a nova data:")
+                                    hora= input("Digite o horário da nova consulta: ")
+                    
+                                    for a in lista_consultas:
+                                        if a["id"] == i["id"] and a["data"] == data and a["hora"] == hora:
+                                            print("já tem cosulta nesse horário!")
+                                            encontrado = True
 
-                            if not encontrado:
-                                print("Nenhuma consulta marcada nessa data!")
+                                    if not encontrado:
+                                        i["data"] = data
+                                        i["hora"] = hora
 
+                                    s.Salvar_arquivo_consultas(lista_consultas)
+
+                                    print("Consulta reagendada com sucesso!")
+
+                
 
 
 
