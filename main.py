@@ -491,13 +491,12 @@ while True:
                     while True:
                         print("-----MENU RECEPÇÃO CONSULTAS-----")
                         print("1 - Marcar consulta para médico específico")
-                        print("2 - Escolher data/horário")
-                        print("3 - Reagendar consulta")
-                        print("4 - Cancelar consulta")
-                        print("5 - Confirmar presença")
-                        print("6 - Listar todas as consultas do dia")
-                        print("7 - Listar consultas futuras")
-                        print("8 - Sair")
+                        print("2 - Reagendar consulta")
+                        print("3 - Cancelar consulta")
+                        print("4 - Confirmar presença")
+                        print("5 - Listar todas as consultas do dia")
+                        print("6 - Listar consultas futuras")
+                        print("7 - Sair")
 
                         op = int(input("Digite a opção que deseja acessar: "))
 
@@ -505,13 +504,56 @@ while True:
                             lista_consultas = s.Carregar_arquivo_consultas()
                             lista_medicos = s.Carregar_arquivo_medicos()
 
+                            data = input("Digite a data da consulta: ")
+                            hora = input("Digite a hora da consulta: ")
+
                             for i in lista_medicos:
                                 print(f"ID médico: {i["id"]} - {i["nome"]}")
 
                             op = int(input("Digite o ID do médico: "))
 
+                            encontrado = False
+
                             for i in lista_consultas:
-                                if i["id_medico"] ==
+                                if i["id_medico"] == op and i["data"] == data and i["hora"] == hora:
+                                    print("Nesse horário e dia esse médico já tem consulta!")
+                                    encontrado = True
+
+                                if not encontrado:
+                                    new_dict = {
+                                        "id": len(lista_consultas) + 1,
+                                        "id_paciente": int(input("Digite o ID do paciente: ")),
+                                        "id_medico": op,
+                                        "data": data,
+                                        "hora": hora,
+                                        "status": "Agendada"
+                                        }
+                                    
+                                    lista_consultas.append(new_dict)
+
+                                    s.Salvar_arquivo_consultas(lista_consultas)
+
+                                    print("Consulta agendada com sucesso!")
+                                    break
+                        
+                        elif op == 2:
+                            lista_consultas = s.Carregar_arquivo_consultas()
+
+                            data = input("Digite a data da consulta: ")
+                            hora = input("Digite a hora da consulta: ")
+
+                            encontrado = False
+
+                            for i in lista_consultas:
+                                if i["data"] == data and i["hora"] == hora:
+                                    print(f"DATA: {i["data"]} | HORÁRIO: {i["hora"]}")
+                                    encontrado = True
+
+                            if not encontrado:
+                                print("Nenhuma consulta marcada nessa data!")
+
+
+
 
 
 
