@@ -715,7 +715,96 @@ while True:
                         elif op == 3:
                             print("Voltando!")
                             break
-                        
+
+                elif op == 4:
+                    while True:
+                        print("-----MENU RECEPÇÃO RELATÒRIOS-----")
+                        print("1 - Agenda do dia")
+                        print("2 - Consultas por data")
+                        print("3 - Consultas canceladas por período")
+                        print("4 - Pacientes atendidos por dia")
+                        print("5 - Sair")
+
+                        op = int(input("Digite a opção que deseja acessar: "))
+
+                        if op == 1:
+                            lista_consultas = s.Carregar_arquivo_consultas()
+
+                            data_hoje = datetime.now().date()
+
+                            encontrado = False
+                            
+                            print(f"Data: {data_hoje}")
+
+                            for i in lista_consultas:
+                                data_consulta = datetime.strptime(i["data"], "%d/%m/%Y").date()
+
+                                if data_consulta == data_hoje:
+                                    print(f"ID consulta: {i["id"]} - Hora: {i["hora"]} - Status: {i["status"]}")
+                                    encontrado = True
+
+                            if not encontrado:
+                                print("Sem consultas hoje!")
+
+                        elif op == 2:
+                            lista_consultas = s.Carregar_arquivo_consultas()
+
+                            data = input("Digite a data que deseja buscar: ")
+
+                            consultas_data = 0
+
+                            for i in lista_consultas:
+                                if i["data"] == data:
+                                    consultas_data += 1
+
+                            print(f"Total de consultas nessa data: {consultas_data}")
+
+                        elif op == 3:
+                            lista_consultas = s.Carregar_arquivo_consultas()
+
+                            data_inicio = datetime.strptime(input("Data início (dd/mm/aaaa): "), "%d/%m/%Y")
+                            data_fim = datetime.strptime(input("Data fim (dd/mm/aaaa): "), "%d/%m/%Y")
+
+                            total = 0
+
+                            for i in lista_consultas:
+                                if i["status"] == "Cancelada":
+                                    data_consulta = datetime.strptime(i["data"], "%d/%m/%Y")
+
+                                    if data_inicio <= data_consulta <= data_fim:
+                                        total += 1
+
+                            print(f"Total de consultas canceladas: {total}")
+
+                        elif op == 4:
+                            lista_consultas = s.Carregar_arquivo_consultas()
+
+                            contagem = {}
+
+                            for i in lista_consultas:
+                                data = i["data"]
+                                
+                                if data in contagem:
+                                    contagem[data] += 1
+                                else:
+                                    contagem[data] = 1
+
+                            for data in sorted(contagem):
+                                print(f"{data}: {contagem[data]} atendimentos")
+
+                        elif op == 5:
+                            print("Voltando!")
+                            break
+                
+                elif op == 5:
+                    print("Voltando!")
+                    break
+
+    elif opcao == 3:
+        
+
+
+
     else:
         print("Informação não permitida para esse usuários")
         
