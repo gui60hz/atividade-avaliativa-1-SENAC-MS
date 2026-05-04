@@ -565,12 +565,157 @@ while True:
 
                                     print("Consulta reagendada com sucesso!")
 
-                
+                        elif op == 3:
+                            lista_consultas = s.Carregar_arquivo_consultas()
 
+                            id_consulta = int(input("Digite o id da consulta que deseja cancelar: "))
 
+                            for i in lista_consultas:
+                                if id_consulta == i["id"]:
+                                    i["status"] = "Cancelada"
 
+                            s.Salvar_arquivo_consultas(lista_consultas)
 
+                            print("Consulta cancelada com sucesso!")
 
+                        elif op == 4:
+                            lista_consultas = s.Carregar_arquivo_consultas()
+
+                            id_consulta = int(input("Digite o id da consulta que deseja confirmar: "))
+
+                            encontrado = False
+
+                            for i in lista_consultas:
+                                if id_consulta == i["id"] and i["status"] == "Agendada":
+                                    print(f"ID médico: {i["id_medico"]}")
+                                    print(f"ID paciente: {i["id_paciente"]}")
+                                    print(f"Data: {i["data"]}")
+                                    print(f"Hora: {i["hora"]}")
+                                    print(f"Status: {i["status"]}")
+
+                                    i["status"] = "Confirmada"
+                                    
+                                    print("Consultada confirmada!")
+
+                                    encontrado = True
+                            s.Salvar_arquivo_consultas(lista_consultas)
+
+                            if not encontrado:
+                                print("Essa consulta não pode ser confirmada!")
+
+                        elif op == 5:
+                            lista_consultas = s.Carregar_arquivo_consultas()
+
+                            data_hoje = datetime.now().date()
+
+                            encontrado = False
+
+                            for i in lista_consultas:
+                                data_consulta = datetime.strptime(i["data"], "%d/%m/%Y").date()
+
+                                if data_consulta == data_hoje:
+                                
+                                    if i["status"] == "Agendada" or i["status"] == "Confirmada" or i["status"] == "Em atendimento" or i["status"] == "Finalizada":
+                                        print(f"ID consulta: {i["id"]}")
+                                        print(f"ID médico: {i["id_medico"]}")
+                                        print(f"ID paciente: {i["id_paciente"]}")
+                                        print(f"Data: {i["data"]}")
+                                        print(f"Hora: {i["hora"]}")
+                                        print(f"Status: {i["status"]}")
+                                        print("---------------------------------------------")
+
+                                        encontrado = True
+
+                            if not encontrado:
+                                print("Sem consultas hoje!")
+
+                        elif op == 6:
+                            lista_consultas = s.Carregar_arquivo_consultas()
+
+                            data_hoje = datetime.now().date()
+
+                            encontrado = False
+
+                            for i in lista_consultas:
+                                data_consulta = datetime.strptime(i["data"], "%d/%m/%Y").date()
+
+                                if data_consulta != data_hoje and data_consulta > data_hoje:
+                                
+                                    if i["status"] == "Agendada" or i["status"] == "Confirmada":
+                                        print(f"ID consulta: {i["id"]}")
+                                        print(f"ID médico: {i["id_medico"]}")
+                                        print(f"ID paciente: {i["id_paciente"]}")
+                                        print(f"Data: {i["data"]}")
+                                        print(f"Hora: {i["hora"]}")
+                                        print(f"Status: {i["status"]}")
+                                        print("---------------------------------------------")
+
+                                        encontrado = True
+
+                            if not encontrado:
+                                print("Sem consultas futuras!")
+
+                        elif op == 7:
+                            print("Voltando!")
+                            break
+
+                elif op == 3:
+                    while True:
+                        print("-----MENU RECEPÇÃO HISTÓRICO-----")
+                        print("1 - Visualizar consultas anteriores do paciente")
+                        print("2 - Ver datas de atendimentos anteriores")
+                        print("3 - Sair")
+
+                        op = int(input("Digite a opção que deseja acessar: "))
+
+                        if op == 1:
+                            lista_consultas = s.Carregar_arquivo_consultas()
+                            lista_pacientes = s.Carregar_arquivo_pacientes()
+
+                            for i in lista_pacientes:
+                                print(f"ID paciente: {i["id"]} | Nome: {i["nome"]}")
+
+                            id_paciente = int(input("Digite o id do paciente que deseja acessar: "))
+
+                            data_hoje = datetime.now().date()
+
+                            encontrado = False
+
+                            for i in lista_consultas:
+                                data_consulta = datetime.strptime(i["data"], "%d/%m/%Y").date()
+
+                                if data_consulta != data_hoje and data_consulta < data_hoje:
+
+                                    if i["id_paciente"] == id_paciente:
+                                        print(f"Data: {i["data"]} | Hora: {i["hora"]}")
+                                        print(f"ID médico: {i["id_medico"]} | Status: {i["status"]}")
+                                        print("--------------------------------------------------------")
+                                        encontrado = True
+
+                            if not encontrado:
+                                print("Paciente não possue consultas anteriores!")
+
+                        elif op == 2:
+                            lista_consultas = s.Carregar_arquivo_consultas()
+
+                            data_hoje = datetime.now().date()
+
+                            encontrado = False
+
+                            for i in lista_consultas:
+                                data_consulta = datetime.strptime(i["data"], "%d/%m/%Y").date()
+
+                                if data_consulta != data_hoje and data_consulta < data_hoje:
+                                    print(f"ID consulta: {i["id"]} - Data: {i["data"]} - Hora: {i["hora"]} - Status: {i["status"]}")
+                                    encontrado = True
+
+                            if not encontrado:
+                                print("Sem consultas anteriores!")
+
+                        elif op == 3:
+                            print("Voltando!")
+                            break
+                        
     else:
         print("Informação não permitida para esse usuários")
         
