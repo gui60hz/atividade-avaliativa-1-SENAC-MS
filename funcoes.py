@@ -1,6 +1,7 @@
 #--------------------------IMPORTS-------------------------------------------------------------------
 import json
 import save as s
+import funcoes as func
 from pathlib import Path
 from datetime import datetime
 
@@ -179,3 +180,45 @@ def Menu_recepcionista():
     print("3 - Histórico")
     print("4 - Relatórios")
     print("5 - Sair")
+
+#--------------------------MÉDICO-------------------------------------------------------------------
+
+def Validar_login_medico():
+    usuario = input("Digite o usuário: ")
+    senha = input("Digite a senha: ")
+
+    lista_usuarios = s.Carregar_arquivo_usuarios()
+
+    login_sucesso = False
+
+    for i in lista_usuarios:
+        if usuario == i["usuario"] and senha == i["senha"]:
+            if i["nivel"] == "medico":
+                print("Login bem-sucedido!")
+                login_sucesso = True
+                return True
+            
+    if not login_sucesso:
+            print("Você não possui acesso a essa informação!")
+
+def mostrar_consultas_hoje():
+    lista_consultas = s.Carregar_arquivo_consultas()
+    lista_medicos = s.Carregar_arquivo_medicos()
+
+    for i in lista_medicos:
+        if func.Validar_login_medico:
+            id_medico = i["id"]
+
+    data_hoje = datetime.now().date()
+
+    consultas_hoje = 0
+
+    for i in lista_consultas:
+        data_consulta = datetime.strptime(i["data"], "%d/%m/%Y").date()
+        
+        if data_consulta == data_hoje and id_medico:
+            consultas_hoje += 1
+
+    print(f"Consultas hoje: {consultas_hoje}")
+
+

@@ -801,7 +801,8 @@ while True:
                     break
 
     elif opcao == 3:
-        
+        if func.Validar_login_medico():
+            func.mostrar_consultas_hoje()
 
 
 

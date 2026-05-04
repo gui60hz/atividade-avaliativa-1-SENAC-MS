@@ -12,25 +12,25 @@
     "nivel": "admin"
   },
   {
-    "id": 2,
+    "id": 3,
     "usuario": "luiza.recep",
     "senha": "123",
     "nivel": "recepcionista"
   },
   {
-    "id": 2,
+    "id": 4,
     "usuario": "joao.recep",
     "senha": "123",
     "nivel": "recepcionista"
   },
   {
-    "id": 2,
+    "id": 5,
     "usuario": "carlos.med",
     "senha": "123",
     "nivel": "medico"
   },
   {
-    "id": 2,
+    "id": 6,
     "usuario": "joao.med",
     "senha": "123",
     "nivel": "medico"

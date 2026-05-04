@@ -1,74 +1,20 @@
-[
-  {
-    "id": 2,
-    "id_paciente": 3,
-    "id_medico": 2,
-    "data": "24/04/2026",
-    "hora": "17:00",
-    "status": "Finalizada"
+[ 
+  { 
+    "id": 1, 
+    "nome": "Dr João Silva", 
+    "especialidade": "Clínico Geral", 
+    "crm": "12345" 
   },
-  {
-    "id": 3,
-    "id_paciente": 1,
-    "id_medico": 1,
-    "data": "24/02/2026",
-    "hora": "11:00",
-    "status": "Finalizada"
+  { 
+    "id": 2, 
+    "nome": "Dr João Ramos", 
+    "especialidade": "Cardiologista", 
+    "crm": "11111" 
   },
-  {
-    "id": 4,
-    "id_paciente": 2,
-    "id_medico": 2,
-    "data": "27/04/2026",
-    "hora": "09:00",
-    "status": "Finalizada"
-  },
-  {
-    "id": 5,
-    "id_paciente": 1,
-    "id_medico": 1,
-    "data": "24/06/2026",
-    "hora": "15:00",
-    "status": "Agendada"
-  },
-  {
-    "id": 6,
-    "id_paciente": 3,
-    "id_medico": 2,
-    "data": "27/04/2026",
-    "hora": "15:00",
-    "status": "Finalizada"
-  },
-  {
-    "id": 7,
-    "id_paciente": 2,
-    "id_medico": 1,
-    "data": "27/04/2026",
-    "hora": "18:00",
-    "status": "Cancelada"
-  },
-  {
-    "id": 8,
-    "id_paciente": 3,
-    "id_medico": 1,
-    "data": "25/06/2026",
-    "hora": "11:00",
-    "status": "Cancelada"
-  },
-  {
-    "id": 9,
-    "id_paciente": 4,
-    "id_medico": 1,
-    "data": "25/06/2026",
-    "hora": "11:30",
-    "status": "Agendada"
-  },
-  {
-    "id": 10,
-    "id_paciente": 1,
-    "id_medico": 4,
-    "data": "25/08/2026",
-    "hora": "15:00",
-    "status": "Agendada"
+  { 
+    "id": 3, 
+    "nome": "Dr Rafael Braga", 
+    "especialidade": "Neurologista", 
+    "crm": "22222" 
   }
 ]
