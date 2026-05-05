@@ -34,5 +34,11 @@
     "usuario": "joao.med",
     "senha": "123",
     "nivel": "medico"
+  },
+  {
+    "id": 7,
+    "usuario": "rafael.med",
+    "senha": "123",
+    "nivel": "medico"
   }
 ]

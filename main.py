@@ -28,9 +28,24 @@ while True:
 
                     if op == 1:
                         lista_usuarios = s.Carregar_arquivo_usuarios()
+                        lista_medicos = s.Carregar_arquivo_medicos()
+
                         usuario = input("Digite o usuário: ")
                         senha = input("Digite a senha: ")
                         nivel = input("Digite o nível do usuário: ")
+
+                        if nivel == "medico":
+                            nome_medico = input("Digite o nome do médico: ")
+                            especialidade = input("Digite a especialidade do médico: ")
+                            crm_medico = input("Digite o CRM do médico: ")
+
+                            new_dict_medico = {
+                                    "id": len(lista_usuarios) + 1,
+                                    "nome": nome_medico,
+                                    "especialidade": especialidade,
+                                    "crm": crm_medico
+                                }
+
                         new_dict = {
                                 "id": len(lista_usuarios) + 1,
                                 "usuario": usuario,
@@ -38,7 +53,9 @@ while True:
                                 "nivel": nivel
                             }
                         lista_usuarios.append(new_dict)
+                        lista_medicos.append(new_dict_medico)
                         s.Salvar_arquivo_usuarios(lista_usuarios)
+                        s.Salvar_arquivo_medicos(lista_medicos)
                         
                         print("Cadastro realizado com sucesso!")
 
