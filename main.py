@@ -1035,7 +1035,41 @@ while True:
                         break
 
                 elif op == 4:
-                                
+                    while True:
+                        print("-----MENU HISTÓRICO MÉDICO-----")
+                        print("1 - Buscar paciente por nome")
+                        print("2 - Ver histórico de consultas anteriores")
+                        print("3 - Ver prontuários anteriores do paciente")
+                        print("4 - Sair")
+
+                        op = int(input("Digite a opção que deseja acessar: "))
+
+                        if op == 1:
+                            lista_pacientes = s.Carregar_arquivo_pacientes()
+
+                            nome_paciente = input("Digite o nome do paciente: ")
+
+                            encontrado = False
+
+                            for paciente in lista_pacientes:
+                                if paciente["nome"] == nome_paciente:
+                                    print(f"ID paciente: {paciente["id"]}")
+                                    print(f"Nome: {paciente["nome"]}")
+                                    print(f"Idade: {paciente["idade"]}")
+                                    print(f"CPF: {paciente["cpf"]}")
+                                    print(f"Telefone: {paciente["telefone"]}")
+                                    print(f"Endereço: {paciente["endereco"]}")
+                                    
+                                    encontrado = True
+                            
+                            if not encontrado:
+                                print("Paciente não encontrado!")
+                                break
+
+                        elif op == 2:
+                            
+
+                        
 
 
 
