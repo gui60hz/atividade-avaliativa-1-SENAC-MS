@@ -6,6 +6,16 @@ from pathlib import Path
 from datetime import datetime
 
 base = Path(__file__).parent
+medico_logado_id = None
+
+def Gerar_proximo_id(lista):
+    maior_id = 0
+
+    for i in lista:
+        if i["id"] > maior_id:
+            maior_id = i["id"]
+
+    return maior_id + 1
 
 #--------------------------ADMINISTRADOR-------------------------------------------------------------------
 
@@ -183,7 +193,78 @@ def Menu_recepcionista():
 
 #--------------------------MÉDICO-------------------------------------------------------------------
 
+def obter_id_medico_logado():
+    if medico_logado_id is not None:
+        return medico_logado_id
+
+    return int(input("Digite o ID do medico: "))
+
+def consultas_medico_hoje(id_medico):
+    lista_consultas = s.Carregar_arquivo_consultas()
+    data_hoje = datetime.now().date()
+    consultas = []
+
+    for consulta in lista_consultas:
+        data_consulta = datetime.strptime(consulta["data"], "%d/%m/%Y").date()
+
+        if data_consulta == data_hoje and consulta["id_medico"] == id_medico:
+            consultas.append(consulta)
+
+    return consultas
+
+def contar_consultas_medico_hoje(id_medico):
+    consultas = consultas_medico_hoje(id_medico)
+    return len(consultas)
+
+def buscar_proxima_consulta_medico(id_medico):
+    consultas = consultas_medico_hoje(id_medico)
+    proximas_consultas = []
+
+    for consulta in consultas:
+        if consulta["status"] == "Agendada" or consulta["status"] == "Confirmada":
+            proximas_consultas.append(consulta)
+
+    if len(proximas_consultas) == 0:
+        return "Sem proxima consulta"
+
+    proximas_consultas.sort(key=lambda consulta: datetime.strptime(consulta["hora"], "%H:%M").time())
+    return proximas_consultas[0]["hora"]
+
+def contar_consultas_finalizadas_medico_hoje(id_medico):
+    consultas = consultas_medico_hoje(id_medico)
+    total = 0
+
+    for consulta in consultas:
+        if consulta["status"] == "Finalizada":
+            total += 1
+
+    return total
+
+def contar_pacientes_aguardando_medico(id_medico):
+    consultas = consultas_medico_hoje(id_medico)
+    total = 0
+
+    for consulta in consultas:
+        if consulta["status"] == "Confirmada" or consulta["status"] == "Aguardando":
+            total += 1
+
+    return total
+
+def mostrar_consultas_hoje():
+    id_medico = obter_id_medico_logado()
+    consultas_hoje = contar_consultas_medico_hoje(id_medico)
+    proxima = buscar_proxima_consulta_medico(id_medico)
+    consultas_finalizadas = contar_consultas_finalizadas_medico_hoje(id_medico)
+    pacientes_aguardando = contar_pacientes_aguardando_medico(id_medico)
+
+    print(f"Minhas consultas hoje: {consultas_hoje}")
+    print(f"Proxima consulta: {proxima}")
+    print(f"Consultas finalizadas hoje: {consultas_finalizadas}")
+    print(f"Pacientes aguardando: {pacientes_aguardando}")
+
 def Validar_login_medico():
+    global medico_logado_id
+
     usuario = input("Digite o usuário: ")
     senha = input("Digite a senha: ")
 
@@ -195,30 +276,13 @@ def Validar_login_medico():
         if usuario == i["usuario"] and senha == i["senha"]:
             if i["nivel"] == "medico":
                 print("Login bem-sucedido!")
+                medico_logado_id = i["id"]
                 login_sucesso = True
                 return True
             
     if not login_sucesso:
             print("Você não possui acesso a essa informação!")
 
-def mostrar_consultas_hoje():
-    lista_consultas = s.Carregar_arquivo_consultas()
-    lista_medicos = s.Carregar_arquivo_medicos()
 
-    for i in lista_medicos:
-        if func.Validar_login_medico:
-            id_medico = i["id"]
-
-    data_hoje = datetime.now().date()
-
-    consultas_hoje = 0
-
-    for i in lista_consultas:
-        data_consulta = datetime.strptime(i["data"], "%d/%m/%Y").date()
-        
-        if data_consulta == data_hoje and id_medico:
-            consultas_hoje += 1
-
-    print(f"Consultas hoje: {consultas_hoje}")
 
 

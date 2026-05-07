@@ -2,7 +2,7 @@
   {
     "id": 1,
     "id_paciente": 1,
-    "id_medico": 1,
+    "id_medico": 6,
     "data": "24/04/2026",
     "hora": "14:00",
     "status": "Cancelada"
@@ -10,7 +10,7 @@
   {
     "id": 2,
     "id_paciente": 3,
-    "id_medico": 2,
+    "id_medico": 5,
     "data": "24/04/2026",
     "hora": "17:00",
     "status": "Finalizada"
@@ -18,7 +18,7 @@
   {
     "id": 3,
     "id_paciente": 1,
-    "id_medico": 1,
+    "id_medico": 7,
     "data": "24/02/2026",
     "hora": "11:00",
     "status": "Finalizada"
@@ -26,7 +26,7 @@
   {
     "id": 4,
     "id_paciente": 2,
-    "id_medico": 2,
+    "id_medico": 6,
     "data": "27/04/2026",
     "hora": "09:00",
     "status": "Finalizada"
@@ -34,7 +34,7 @@
   {
     "id": 5,
     "id_paciente": 1,
-    "id_medico": 1,
+    "id_medico": 5,
     "data": "24/06/2026",
     "hora": "15:00",
     "status": "Confirmada"
@@ -42,7 +42,7 @@
   {
     "id": 6,
     "id_paciente": 3,
-    "id_medico": 2,
+    "id_medico": 7,
     "data": "04/05/2026",
     "hora": "15:00",
     "status": "Finalizada"
@@ -50,7 +50,7 @@
   {
     "id": 7,
     "id_paciente": 2,
-    "id_medico": 1,
+    "id_medico": 6,
     "data": "27/04/2026",
     "hora": "18:00",
     "status": "Cancelada"
@@ -58,7 +58,7 @@
   {
     "id": 8,
     "id_paciente": 3,
-    "id_medico": 1,
+    "id_medico": 7,
     "data": "25/02/2026",
     "hora": "11:00",
     "status": "Cancelada"
@@ -66,7 +66,7 @@
   {
     "id": 9,
     "id_paciente": 4,
-    "id_medico": 1,
+    "id_medico": 6,
     "data": "25/06/2026",
     "hora": "11:30",
     "status": "Agendada"
@@ -74,9 +74,9 @@
   {
     "id": 10,
     "id_paciente": 1,
-    "id_medico": 4,
-    "data": "24/04/2026",
+    "id_medico": 6,
+    "data": "06/05/2026",
     "hora": "14:00",
-    "status": "Agendada"
+    "status": "Finalizada"
   }
 ]

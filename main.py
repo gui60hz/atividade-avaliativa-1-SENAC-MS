@@ -34,28 +34,33 @@ while True:
                         senha = input("Digite a senha: ")
                         nivel = input("Digite o nível do usuário: ")
 
+                        novo_id = func.Gerar_proximo_id(lista_usuarios)
+                        new_dict_medico = None
+
                         if nivel == "medico":
                             nome_medico = input("Digite o nome do médico: ")
                             especialidade = input("Digite a especialidade do médico: ")
                             crm_medico = input("Digite o CRM do médico: ")
 
                             new_dict_medico = {
-                                    "id": len(lista_usuarios) + 1,
+                                    "id": novo_id,
                                     "nome": nome_medico,
                                     "especialidade": especialidade,
                                     "crm": crm_medico
                                 }
 
                         new_dict = {
-                                "id": len(lista_usuarios) + 1,
+                                "id": novo_id,
                                 "usuario": usuario,
                                 "senha": senha,
                                 "nivel": nivel
                             }
                         lista_usuarios.append(new_dict)
-                        lista_medicos.append(new_dict_medico)
                         s.Salvar_arquivo_usuarios(lista_usuarios)
-                        s.Salvar_arquivo_medicos(lista_medicos)
+
+                        if new_dict_medico is not None:
+                            lista_medicos.append(new_dict_medico)
+                            s.Salvar_arquivo_medicos(lista_medicos)
                         
                         print("Cadastro realizado com sucesso!")
 
@@ -119,16 +124,28 @@ while True:
 
                             if op == 1:
                                 lista_medicos = s.Carregar_arquivo_medicos()
+                                lista_usuarios = s.Carregar_arquivo_usuarios()
+                                novo_id = func.Gerar_proximo_id(lista_usuarios)
+                                usuario = input("Digite o usuario do medico: ")
+                                senha = input("Digite a senha do medico: ")
                                 nome_medico = input("Digite o nome do médico: ")
                                 especialidade = input("Digite a especialidade do médico: ")
                                 crm_medico = input("Digite o CRM do médico: ")
+                                new_dict_usuario = {
+                                    "id": novo_id,
+                                    "usuario": usuario,
+                                    "senha": senha,
+                                    "nivel": "medico"
+                                }
                                 new_dict = {
-                                    "id": len(lista_medicos) + 1,
+                                    "id": novo_id,
                                     "nome": nome_medico,
                                     "especialidade": especialidade,
                                     "crm": crm_medico
                                 }
+                                lista_usuarios.append(new_dict_usuario)
                                 lista_medicos.append(new_dict)
+                                s.Salvar_arquivo_usuarios(lista_usuarios)
                                 s.Salvar_arquivo_medicos(lista_medicos)
                                 print("Cadastro realizado com sucesso!")
                             
@@ -820,8 +837,153 @@ while True:
     elif opcao == 3:
         if func.Validar_login_medico():
             func.mostrar_consultas_hoje()
+            
+            while True:
+                print("-----MENU MÉDICO-----")
+                print("1 - Agenda")
+                print("2 - Atendimento")
+                print("3 - Prontuário / Laudo")
+                print("4 - Histórico Médico")
+                print("5 - Relatórios")
+                print("6 - Sair")
+
+                op = int(input("Digite a opção que deseja acessar: "))
+
+                if op == 1:
+                    while True:
+                        print("-----MENU AGENDA MÉDICO-----")
+                        print("1 - Listar consultar marcadas")
+                        print("2 - Agenda do dia")
+                        print("3 - Agenda futura")
+                        print("4 - Voltar")
+
+                        op = int(input("Digite a opção que deseja acessar: "))
+
+                        if op == 1:
+                            lista_consultas = s.Carregar_arquivo_consultas()
+
+                            id_medico = func.obter_id_medico_logado()
+
+                            encontrado = False
+
+                            for i in lista_consultas:
+                                if id_medico == i["id_medico"]:
+                                    if i["status"] == "Agendada" or i["status"] == "Confirmada":
+                                        print(f"ID consulta: {i["id"]}")
+                                        print(f"Data: {i["data"]}")
+                                        print(f"Hora: {i["hora"]}")
+                                        print(f"Status: {i["status"]}")
+                                        print(f"ID paciente: {i["id_paciente"]}")
+                                        encontrado = True
+                            
+                            if not encontrado:
+                                print("Sem consultas localizadas!")
+                                break
+                        
+                        elif op == 2:
+                            lista_consultas = s.Carregar_arquivo_consultas()
+                            id_medico = func.obter_id_medico_logado()
+                            data_hoje = datetime.now().date()
+
+                            encontrado = False
+
+                            for i in lista_consultas:
+                                data_consulta = datetime.strptime(i["data"], "%d/%m/%Y").date()
+
+                                if i["id_medico"] == id_medico and data_consulta == data_hoje:
+                                    print(f"ID consulta: {i["id"]}")
+                                    print(f"Data: {i['data']}")
+                                    print(f"Hora: {i['hora']}")
+                                    print(f"Status: {i['status']}")
+                                    print(f"ID paciente: {i['id_paciente']}")
+                                    print("----------------------------------")
+                                    encontrado = True
+
+                            if not encontrado:
+                                print("Você não possui consultas hoje!")
+                        
+                        elif op == 3:
+                            lista_consultas = s.Carregar_arquivo_consultas()
+                            id_medico = func.obter_id_medico_logado()
+                            data_hoje = datetime.now().date()
+
+                            encontrado = False
+
+                            for i in lista_consultas:
+                                data_consulta = datetime.strptime(i["data"], "%d/%m/%Y").date()
+
+                                if i["id_medico"] == id_medico and data_consulta != data_hoje:
+                                    if i["status"] == "Agendada" or i["status"] == "Confirmada":
+                                        print(f"ID consulta: {i["id"]}")
+                                        print(f"Data: {i['data']}")
+                                        print(f"Hora: {i['hora']}")
+                                        print(f"Status: {i['status']}")
+                                        print(f"ID paciente: {i['id_paciente']}")
+                                        print("----------------------------------")
+                                        encontrado = True
+
+                            if not encontrado:
+                                print("Você não possui consultas hoje!")
+
+                        elif op == 4:
+                            print("Voltando!")
+                        break
 
 
+                elif op == 2:
+                    while True:
+                        print("-----MENU ATENDIMENTO MÉDICO-----")
+                        print("1 - Iniciar atendimento")
+                        print("2 - Finalizar atendimento")
+                        print("3 - Voltar")
+
+                        op = int(input("Digite a opção que deseja acessar: "))
+
+                        if op == 1:
+                            lista_consultas = s.Carregar_arquivo_consultas()
+                            
+                            id_consulta_confirmar = int(input("Digite o ID da consulta: "))
+
+                            encontrado = False
+
+                            for i in lista_consultas:
+                                if i["id"] == id_consulta_confirmar:
+                                    i["status"] = "Em Atendimento"
+                                    encontrado = True
+
+                            if not encontrado:
+                                print("Consulta não encontrada!")
+                                break
+
+                            s.Salvar_arquivo_consultas(lista_consultas)
+                            print("Status da consulta alterado com sucesso!")
+                        
+                        elif op == 2:
+                            lista_consultas = s.Carregar_arquivo_consultas()
+                            
+                            id_consulta_finalizar = int(input("Digite o ID da consulta: "))
+
+                            encontrado = False
+
+                            for i in lista_consultas:
+                                if i["id"] == id_consulta_finalizar:
+                                    if i["status"] == "Em Atendimento":
+                                        i["status"] = "Finalizada"
+                                        encontrado = True
+
+                            if not encontrado:
+                                print("Consulta não encontrada!")
+                                break
+
+                            s.Salvar_arquivo_consultas(lista_consultas)
+                            print("Consulta finalizada com sucesso!")
+                        
+                        elif op == 3:
+                            print("Voltando!")
+                            break
+
+                elif op == 3:
+                        
 
     else:
         print("Informação não permitida para esse usuários")
