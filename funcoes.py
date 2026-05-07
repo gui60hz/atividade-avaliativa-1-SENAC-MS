@@ -283,6 +283,14 @@ def Validar_login_medico():
     if not login_sucesso:
             print("Você não possui acesso a essa informação!")
 
+def Nome_paciente(id_paciente):
+    lista_pacientes = s.Carregar_arquivo_pacientes()
+
+    for paciente in lista_pacientes:
+        if paciente["id"] == id_paciente:
+            return paciente["nome"]
+
+    return "Paciente não encontrado"
 
 
 

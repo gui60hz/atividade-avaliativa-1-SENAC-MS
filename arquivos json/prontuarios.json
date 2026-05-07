@@ -1,11 +1,20 @@
-[ 
-  { 
-    "id": 1, 
-    "id_paciente": 1, 
-    "id_medico": 1, 
-    "data": "24/04/2026", 
-    "diagnostico": "Gripe", 
-    "receita": "Paracetamol", 
-    "observacoes": "Repouso" 
-  } 
-] 
+[
+  {
+    "id": 1,
+    "id_paciente": 1,
+    "id_medico": 1,
+    "data": "24/04/2026",
+    "diagnostico": "Gripe",
+    "receita": "Paracetamol",
+    "observacoes": "Repouso"
+  },
+  {
+    "id": 2,
+    "id_paciente": 1,
+    "id_medico": 6,
+    "data": "06/05/2026",
+    "diagnostico": "covid",
+    "receita": "dipirona",
+    "observacoes": "nenhuma"
+  }
+]

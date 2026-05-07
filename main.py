@@ -983,7 +983,61 @@ while True:
                             break
 
                 elif op == 3:
+                    lista_consultas = s.Carregar_arquivo_consultas()
+                    lista_prontuarios = s.Carregar_arquivo_prontuarios()
+
+                    id_medico = func.obter_id_medico_logado()
+
+                    encontrado = False
+                    
+                    for i in lista_consultas:
+                        if id_medico == i["id_medico"]:
+                            if i["status"] == "Em atendimento":
+                                print(f"ID consulta: {i["id"]}")
+                                print(f"ID paciente: {func.Nome_paciente(i["id_paciente"])}")
+                                encontrado = True
+
+                    if not encontrado:
+                        print("Médico não possue consultas em andamento!")
+                        break
+
+                    busca_consulta = int(input("Digite o ID da consulta: "))
                         
+                    for i in lista_consultas:
+                        if i["id"] == busca_consulta and i["status"] == "Em atendimento":
+                            data = i["data"]
+                            diagnostico = input("Digite o diagnóstico do paciente: ")
+                            receita_medica = input("Digite a receita médica: ")
+                            obs_gerais = input("Digite as observações gerais do paciente: ")
+                            retorno_recomendado = input("Digite a data do retorno: ")
+                            id_paciente = i["id_paciente"]
+
+                            new_dict = {
+                                "id": len(lista_prontuarios) + 1,
+                                "id_paciente": id_paciente,
+                                "id_medico": id_medico,
+                                "data": data,
+                                "diagnostico": diagnostico,
+                                "receita": receita_medica,
+                                "observacoes": obs_gerais
+                            }
+
+                            lista_prontuarios.append(new_dict)
+
+                            encontrado = True
+
+                            s.Salvar_arquivo_prontuarios(lista_prontuarios)
+
+                            print("Prontuário registrado com sucesso!")
+
+                    if not encontrado:
+                        print("Consulta não encontrada!")
+                        break
+
+                elif op == 4:
+                                
+
+
 
     else:
         print("Informação não permitida para esse usuários")
