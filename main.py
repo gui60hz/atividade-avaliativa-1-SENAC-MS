@@ -1067,11 +1067,149 @@ while True:
                                 break
 
                         elif op == 2:
+                            lista_consultas = s.Carregar_arquivo_consultas()
+                            lista_pacientes = s.Carregar_arquivo_pacientes()
+
+                            encontrado = False
+
+                            for i in lista_pacientes:
+                                print(f"ID paciente: {i["id"]} | Nome {i["nome"]}")
+                                encontrado = True
+
+                            if not encontrado:
+                                print("Nenhum paciente foi localizado!")
+                                break
+
+                            id_paciente = int(input("Digite o ID do paciente que deseja buscar: "))
                             
+                            print("--------------Consultas do paciente---------------")
 
+                            for i in lista_consultas:
+                                if i["id_paciente"] == id_paciente:
+                                    print(f"ID da consulta: {i["id"]}")
+                                    print(f"Data da consulta: {i["data"]}")
+                                    print(f"Hora da consulta: {i["hora"]}")
+                                    print(f"ID médico da consulta: {i["id_medico"]}")
+                                    print("------------------------------------------")
+                                    encontrado = True
+                            
+                            if not encontrado:
+                                print("Nenhuma consulta encontrada!")
+
+                        elif op == 3:
+                            lista_prontuarios = s.Carregar_arquivo_prontuarios()
+                            lista_pacientes = s.Carregar_arquivo_pacientes()
+
+                            encontrado = False
+
+                            for i in lista_pacientes:
+                                print(f"ID paciente: {i["id"]} | Nome {i["nome"]}")
+                                encontrado = True
+
+                            if not encontrado:
+                                print("Nenhum paciente foi localizado!")
+                                break
+
+                            id_paciente = int(input("Digite o ID do paciente que deseja buscar: "))
+                            
+                            print("--------------Prontuários do paciente---------------")
+
+                            for i in lista_prontuarios:
+                                if i["id_paciente"] == id_paciente:
+                                    print(f"ID do prontuário: {i["id"]}")
+                                    print(f"Data do prontuário: {i["data"]}")
+                                    print(f"Diagnóstico: {i["diagnostico"]}")
+                                    print(f"Receita: {i["receita"]}")
+                                    print(f"Observações: {i["diagnostico"]}")
+                                    print(f"ID médico responsável: {i["id_medico"]}")
+                                    print("------------------------------------------")
+                                    encontrado = True
+                            
+                            if not encontrado:
+                                print("Nenhuma consulta encontrada!")
+
+                        elif op == 4:
+                            print("Voltando!")
+                            break
+                
+                elif op == 5:
+                    print("-----MENU DE HISTÓRICO MÉDICO-----")
+                    print("1 - Total de atendimentos realizados")
+                    print("2 - Pacientes atendidos no mês")
+                    print("3 - Quantidade de consultas pendentes")
+                    print("4 - Sair")
+
+                    op = int(input("Digite a opção que deseja acessar: "))
+
+                    if op == 1:
+                        lista_consultas = s.Carregar_arquivo_consultas()
+                        lista_medicos = s.Carregar_arquivo_medicos()
+
+                        id_medico = func.obter_id_medico_logado()
+
+                        encontrado = False
+
+                        total = 0
+
+                        for i in lista_consultas:
+                            if id_medico == i["id_medico"]:
+                                if i["status"] == "Finalizada":
+                                    total += 1
+                                    encontrado = True
+
+                        print(f"Total de atendimentos: {total}")
                         
+                        if not encontrado:
+                            print("Sem consultas localizadas!")
+                            break
 
+                    elif op == 2:
+                        lista_consultas = s.Carregar_arquivo_consultas()
+                        lista_medicos = s.Carregar_arquivo_medicos()
 
+                        id_medico = func.obter_id_medico_logado()
+
+                        encontrado = False
+
+                        total = 0
+
+                        for i in lista_consultas:
+                            if id_medico == i["id_medico"]:
+                                if i["status"] == "Finalizada":
+                                    total += 1
+                                    encontrado = True
+
+                        print(f"Total de pacientes atendidos: {total}")
+                        
+                        if not encontrado:
+                            print("Sem consultas localizadas!")
+                            break
+
+                    elif op == 3:
+                        lista_consultas = s.Carregar_arquivo_consultas()
+                        lista_medicos = s.Carregar_arquivo_medicos()
+
+                        id_medico = func.obter_id_medico_logado()
+
+                        encontrado = False
+
+                        total = 0
+
+                        for i in lista_consultas:
+                            if id_medico == i["id_medico"]:
+                                if i["status"] == "Agendada" or i["status"] == "Confirmada":
+                                    total += 1
+                                    encontrado = True
+
+                        print(f"Total de consultas pendentes: {total}")
+                        
+                        if not encontrado:
+                            print("Sem consultas localizadas!")
+                            break
+
+                    elif op == 4:
+                        print("Voltando!")
+                        break
 
     else:
         print("Informação não permitida para esse usuários")
